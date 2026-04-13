@@ -63,7 +63,8 @@ Originally, the system used synchronous uploads.
 It was upgraded to:
 
 ```bash
-aiohttp + asyncio ```
+aiohttp + asyncio
+```
 
 ---
 
@@ -79,7 +80,8 @@ source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 pip install -r requirements.txt
 source .venv/bin/activate   (or .venv\Scripts\activate on Windows)
 
-pip install -r requirements.txt```
+pip install -r requirements.txt
+```
 
 ### Update Redis in celery_app.py:
 REDIS_URL = "redis://<YOUR_HOST>:6379/0"
