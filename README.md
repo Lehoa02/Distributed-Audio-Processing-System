@@ -1,91 +1,66 @@
-# 🔧 Quick Setup Instructions (For Connor)
+# 🎧 Distributed Audio Processing System
 
-These steps will get the Celery worker running on your laptop so we can process audio files in parallel.
-
----
-
-## 1. Clone the repository
-
-```bash
-git clone https://github.com/Lehoa02/CompSci_421_GroupProject.git
-cd CompSci_421_GroupProject
-```
-
-## 2. Create and activate a virtual environment
-
-macOS / Linux
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-Windows
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
-## 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-## 4. Update Redis URL in celery_app.py
-
-My laptop’s local IP address: 143.200.36.6
-Then edit the file:
-
-```bash
-REDIS_URL = "redis://<ANA_IP>:6379/0"
-```
-You do not need to run Redis — you connect to mine Redis instance.
-
-## 5. Start the Celery worker
-
-From the project folder:
-```bash
-celery -A celery_app.celery_app worker --loglevel=INFO --concurrency=4
-```
-
-If it works, you will see:
-```bash
-[INFO] celery@your-machine ready
-```
-Leave this terminal open — it is your Celery worker.
-
-## 6. How we use async processing
-There are two ways we send work to your worker:
-
-6.1. Async batch submitter (uses asyncio + aiohttp)
-
-I can run:
-```bash
-python async_submit.py
-```
-This script:
-
--finds all .wav files in data/audio/
-
--uses aiohttp + asyncio.gather to upload them concurrently to the Flask /upload endpoint
-
--each upload triggers a Celery task on your worker (compute_dft_features)
-
--results are written into dft_features.csv and shown on the dashboard
-
-You’ll see tasks appear in your worker terminal as they are processed in parallel.
-
-6.2. (Optional) Synchronous submitter
-```bash
-python submit_jobs.py
-```
-This still uses Celery, but submits files one by one and waits for each result.
-We mainly keep it to show the difference vs. the async version.
+A scalable system for processing audio files in parallel using Celery workers, Redis, and a Flask API. The application extracts audio features such as spectral centroid, bandwidth, and loudness, and visualizes them through a web interface.
 
 ---
 
-## Bonus
-The website of free music .wav format: 
-```bash
-https://cambridge-mt.com/ms3/mtk/
-```
+## 🚀 Project Overview
+
+This project processes `.wav` audio files using a distributed architecture:
+
+- **Flask** → Handles file uploads and API requests  
+- **Celery** → Executes audio processing tasks in parallel  
+- **Redis** → Acts as the message broker  
+- **Async uploader (aiohttp + asyncio)** → Sends multiple files concurrently  
+- **Frontend** → Displays extracted audio features  
+
+The system is designed to improve performance by enabling asynchronous uploads and parallel task execution.
+
+📄 Based on project documentation: :contentReference[oaicite:0]{index=0}
 
 ---
-<img width="1622" height="971" alt="image" src="https://github.com/user-attachments/assets/4ff941bc-08f7-471d-8ee3-14587f8e7a72" />
+
+## ⚙️ Key Features
+
+- Parallel audio processing using Celery workers  
+- Asynchronous file uploads for improved throughput  
+- Feature extraction (DFT-based):
+  - Spectral centroid
+  - Bandwidth
+  - Loudness
+- Real-time dashboard visualization  
+- Scalable architecture using message queues  
+
+---
+
+## 🧠 System Design
+
+### Architecture Choice (CAP Theorem)
+
+We prioritize:
+
+- **Availability**
+- **Partition Tolerance**
+
+This means:
+- The system continues accepting uploads even if workers or Redis are temporarily unavailable  
+- Tasks are processed once the connection is restored  
+
+---
+
+### Database & Messaging
+
+- **Redis** → message broker for Celery  
+- **Kafka (conceptual / optional)** → event streaming and data pipeline  
+
+The system avoids strict relational constraints and focuses on high-throughput data processing.
+
+---
+
+### Async Processing
+
+Originally, the system used synchronous uploads.  
+It was upgraded to:
+
+```bash
+aiohttp + asyncio
