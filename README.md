@@ -63,45 +63,49 @@ Originally, the system used synchronous uploads.
 It was upgraded to:
 
 ```bash
-aiohttp + asyncio
+aiohttp + asyncio ```
 
 ---
 
-RUN LOCALLY
+## ⚙️ Run Locally
 
+```bash
 git clone https://github.com/Lehoa02/CompSci_421_GroupProject.git
 cd CompSci_421_GroupProject
 
 python -m venv .venv
-source .venv/bin/activate   (or .venv\Scripts\activate on Windows)
+source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 
 pip install -r requirements.txt
+source .venv/bin/activate   (or .venv\Scripts\activate on Windows)
 
-Update Redis in celery_app.py:
+pip install -r requirements.txt```
+
+### Update Redis in celery_app.py:
 REDIS_URL = "redis://<YOUR_HOST>:6379/0"
 
-Start worker:
+### Start worker:
 celery -A celery_app.celery_app worker --loglevel=INFO
 
-Run app:
+### Run app:
 python app.py
 
 ---
 
-RUN JOBS
+## RUN JOBS
 
-Async (recommended):
+### Async (recommended):
 python async_submit.py
 
-Sync:
+### Sync:
 python submit_jobs.py
 
 ---
 
-DEPLOYMENT
+## DEPLOYMENT
 
-Live demo:
+### Live demo:
 https://your-app-name.wasmer.app
 
-Note: deployed version runs without Celery (synchronous processing) due to free hosting limits.
+### Note: deployed version runs without Celery (synchronous processing) due to free hosting limits.
 
