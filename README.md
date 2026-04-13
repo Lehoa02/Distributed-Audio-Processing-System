@@ -78,29 +78,36 @@ python -m venv .venv
 source .venv/bin/activate   # or .venv\Scripts\activate on Windows
 
 pip install -r requirements.txt
-source .venv/bin/activate   (or .venv\Scripts\activate on Windows)
-
-pip install -r requirements.txt
 ```
 
 ### Update Redis in celery_app.py:
+```
 REDIS_URL = "redis://<YOUR_HOST>:6379/0"
+```
 
 ### Start worker:
+```
 celery -A celery_app.celery_app worker --loglevel=INFO
+```
 
 ### Run app:
+```
 python app.py
+```
 
 ---
 
 ## RUN JOBS
 
 ### Async (recommended):
+```
 python async_submit.py
+```
 
 ### Sync:
+```
 python submit_jobs.py
+```
 
 ---
 
