@@ -112,7 +112,7 @@ python submit_jobs.py
 ---
 
 ### Demo:
-<img width="1512" height="739" alt="Screenshot 2026-04-16 at 4 07 30 PM" src="https://github.com/user-attachments/assets/41a32274-e9dd-4946-8f13-bcff84c0a622" />
-<img width="1512" height="739" alt="Screenshot 2026-04-16 at 4 07 30 PM copy" src="https://github.com/user-attachments/assets/bbd5db35-51d6-49b4-a1d4-f3d3ad564ae5" />
+<img width="1512" height="739" alt="Screenshot 2026-04-16 at 4 07 30 PM" src="https://github.com/user-attachments/assets/41a32274-e9dd-4946-8f13-bcff84c0a622" /><img width="1512" height="739" alt="Screenshot 2026-04-16 at 4 07 25 PM" src="https://github.com/user-attachments/assets/3a0487b8-c93a-41b0-be7c-34cfdda75ecb" />
+
 
 
