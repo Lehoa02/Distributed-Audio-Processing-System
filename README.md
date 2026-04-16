@@ -111,10 +111,4 @@ python submit_jobs.py
 
 ---
 
-## DEPLOYMENT
-
-### Live demo:
-https://your-app-name.wasmer.app
-
-### Note: deployed version runs without Celery (synchronous processing) due to free hosting limits.
 
